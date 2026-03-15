@@ -1,56 +1,41 @@
-# Roadwork Platform
+<div align="center">
 
-🎓 RoadWork - Affordable AI tutoring platform. Replaces Chegg/CourseHero with /month unlimited access.
+<img src="https://images.blackroad.io/pixel-art/road-logo.png" alt="BlackRoad OS" width="80" />
 
-## 🌌 About BlackRoad OS, Inc.
+# roadwork-platform
 
-**Core Product:** API layer above Google, OpenAI, and Anthropic
-**Purpose:** Manage AI model memory and continuity
-**Goal:** Enable entire companies to operate exclusively by AI
+**🎓 RoadWork - Affordable AI tutoring platform. Replaces Chegg/CourseHero with /month unlimited access.**
 
-## 📦 Features
+[![BlackRoad OS](https://img.shields.io/badge/BlackRoad_OS-Pave_Tomorrow-FF2255?style=for-the-badge&labelColor=000000)](https://blackroad.io)
+[![License](https://img.shields.io/badge/License-Proprietary-FF6B2B?style=for-the-badge&labelColor=000000)](./LICENSE)
+[![Edge AI](https://img.shields.io/badge/Edge_AI-52_TOPS-00D4FF?style=for-the-badge&labelColor=000000)](https://github.com/BlackRoad-OS-Inc)
 
-- ✨ 🎓 RoadWork - Affordable AI tutoring platform. Replaces Chegg/CourseHero with /month unlimited access.
-- 🚀 Enterprise-ready infrastructure
-- 🔒 Proprietary BlackRoad OS, Inc. technology
-- 🌐 Designed for massive scale (30k agents + 30k employees)
+</div>
 
-## 🏗️ Infrastructure
-
-This repository is part of the BlackRoad Empire:
-- **578 repositories** across 15 specialized organizations
-- Designed to support **30,000 AI agents + 30,000 human employees**
-- **1 operator:** Alexa Amundson (CEO)
-
-## 📊 Status
-
-🟢 **Active Development** | 🏢 **BlackRoad OS, Inc.** | 👔 **CEO: Alexa Amundson**
+<div align="center">
+<sub>Part of the <a href="https://blackroad.io">BlackRoad OS</a> ecosystem — sovereign edge AI infrastructure</sub>
+</div>
 
 ---
 
-## 📜 License & Copyright
+## Overview
 
-**Copyright © 2026 BlackRoad OS, Inc. All Rights Reserved.**
+🎓 RoadWork - Affordable AI tutoring platform. Replaces Chegg/CourseHero with /month unlimited access.
 
-**CEO:** Alexa Amundson
+## License
 
-**PROPRIETARY AND CONFIDENTIAL**
+**Proprietary** — Copyright © 2024–2026 [BlackRoad OS, Inc.](https://blackroad.io) All rights reserved.
 
-This software is the proprietary property of BlackRoad OS, Inc. and is **NOT for commercial resale**.
+Founder & CEO: **Alexa Louise Amundson** · Delaware C-Corp
 
-### ⚠️ Usage Restrictions:
-- ✅ **Permitted:** Testing, evaluation, and educational purposes
-- ❌ **Prohibited:** Commercial use, resale, or redistribution without written permission
+See [LICENSE](./LICENSE) for full terms.
 
-### 🏢 Enterprise Scale:
-Designed to support:
-- 30,000 AI Agents
-- 30,000 Human Employees
-- One Operator: Alexa Amundson (CEO)
+---
 
-### 📧 Contact:
-For commercial licensing inquiries:
-- **Email:** blackroad.systems@gmail.com
-- **Organization:** BlackRoad OS, Inc.
+<div align="center">
 
-See [LICENSE](LICENSE) for complete terms.
+**BlackRoad OS — Pave Tomorrow.**
+
+[blackroad.io](https://blackroad.io) · [GitHub](https://github.com/BlackRoad-OS-Inc) · [Brand](https://brand.blackroad.io)
+
+</div>
