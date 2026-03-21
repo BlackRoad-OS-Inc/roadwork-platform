@@ -3,526 +3,2213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RoadWork - AI Tutoring for $9/month | Unlimited Help with Homework</title>
-    <meta name="description" content="Get unlimited AI tutoring for $9/month. Upload homework, get instant explanations, step-by-step solutions, and 24/7 help. Better than Chegg, CourseHero, or expensive tutors.">
+    <title>RoadWork — Education That Actually Works | AI Tutoring Platform</title>
+    <meta name="description" content="RoadWork: adaptive AI tutoring with cross-session memory, accessibility-first design, and FSRS spaced repetition. Individual $9.99/mo, Schools $3-8/student/yr.">
+    <meta name="keywords" content="AI tutoring, adaptive learning, FSRS, accessibility, education, LMS integration, Canvas, Schoology, MyMathLab, ADA compliance">
+    <meta property="og:title" content="RoadWork — Education That Actually Works">
+    <meta property="og:description" content="Adaptive AI tutoring with memory. Not drill-and-practice. Real conceptual understanding.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://roadwork.blackroad.io">
+    <meta property="og:image" content="https://images.blackroad.io/pixel-art/road-logo.png">
+    <link rel="icon" type="image/png" href="https://images.blackroad.io/pixel-art/road-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ================================================================
+           ROADWORK — BLACKROAD DESIGN SYSTEM
+           Black bg, gradient #FF6B2B->#00D4FF, Space Grotesk/JetBrains Mono
+           Line-border cards, NO backdrop-filter
+           ================================================================ */
+
         :root {
             --black: #000000;
+            --black-900: #0a0a0a;
+            --black-800: #111111;
+            --black-700: #1a1a1a;
+            --black-600: #222222;
             --white: #FFFFFF;
-            --amber: #F5A623;
-            --hot-pink: #FF1D6C;
-            --electric-blue: #2979FF;
-            --violet: #9C27B0;
-            --space-xs: 8px;
-            --space-sm: 13px;
-            --space-md: 21px;
-            --space-lg: 34px;
-            --space-xl: 55px;
-            --space-2xl: 89px;
-            --space-3xl: 144px;
+            --white-90: rgba(255,255,255,0.9);
+            --white-70: rgba(255,255,255,0.7);
+            --white-50: rgba(255,255,255,0.5);
+            --white-30: rgba(255,255,255,0.3);
+            --white-15: rgba(255,255,255,0.15);
+            --white-08: rgba(255,255,255,0.08);
+            --white-04: rgba(255,255,255,0.04);
+            --orange: #FF6B2B;
+            --cyan: #00D4FF;
+            --gradient: linear-gradient(135deg, #FF6B2B, #00D4FF);
+            --gradient-text: linear-gradient(135deg, #FF6B2B 0%, #FF8F5C 25%, #00D4FF 75%, #00EEFF 100%);
+            --gradient-subtle: linear-gradient(135deg, rgba(255,107,43,0.15), rgba(0,212,255,0.15));
+            --gradient-card: linear-gradient(135deg, rgba(255,107,43,0.06), rgba(0,212,255,0.06));
+            --green: #00E676;
+            --red: #FF3D71;
+            --amber: #FFB300;
+            --violet: #B388FF;
+            --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
             --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
 
         body {
             background: var(--black);
             color: var(--white);
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-            line-height: 1.618;
+            font-family: var(--font-display);
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
 
-        /* Grid Background */
+        /* ================================================================
+           GRID BACKGROUND
+           ================================================================ */
+
         .grid-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 55px 55px;
-            animation: grid-move 20s linear infinite;
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
             z-index: 0;
+            pointer-events: none;
         }
 
-        @keyframes grid-move {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(55px, 55px); }
+        .grid-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,107,43,0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 50%, rgba(0,212,255,0.05) 0%, transparent 50%),
+                        radial-gradient(ellipse at 20% 80%, rgba(255,107,43,0.04) 0%, transparent 40%);
         }
 
-        /* Navigation */
+        /* ================================================================
+           LAYOUT
+           ================================================================ */
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 4vw, 60px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .container-narrow {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 4vw, 60px);
+            position: relative;
+            z-index: 2;
+        }
+
+        section {
+            padding: clamp(60px, 10vw, 140px) 0;
+        }
+
+        /* ================================================================
+           TYPOGRAPHY
+           ================================================================ */
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+        h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
+        h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
+        h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
+
+        .gradient-text {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+        }
+
+        .label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--orange);
+        }
+
+        .label-cyan {
+            color: var(--cyan);
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--white-70);
+            max-width: 680px;
+            line-height: 1.8;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: clamp(40px, 6vw, 80px);
+        }
+
+        .section-header .label {
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-header h2 {
+            margin-bottom: 20px;
+        }
+
+        .section-header .subtitle {
+            margin: 0 auto;
+        }
+
+        /* ================================================================
+           NAVIGATION
+           ================================================================ */
+
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            padding: var(--space-md) var(--space-xl);
+            background: rgba(0, 0, 0, 0.92);
+            border-bottom: 1px solid var(--white-08);
+            padding: 16px 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s var(--ease);
+        }
+
+        nav.scrolled {
+            padding: 10px 0;
+            background: rgba(0, 0, 0, 0.97);
         }
 
         nav .container {
-            max-width: 1400px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--amber), var(--hot-pink), var(--violet));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .btn {
-            padding: var(--space-sm) var(--space-lg);
+        .logo-icon {
+            width: 36px;
+            height: 36px;
             border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s var(--ease);
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--black);
+            font-family: var(--font-mono);
         }
 
-        .btn-primary {
-            background: var(--hot-pink);
+        .logo-text {
+            font-family: var(--font-mono);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white-70);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            font-family: var(--font-display);
+        }
+
+        .nav-links a:hover {
             color: var(--white);
         }
 
-        .btn-primary:hover {
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: var(--gradient);
+            color: var(--black);
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            transition: all 0.3s var(--ease);
+            font-family: var(--font-display);
+        }
+
+        .nav-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 29, 108, 0.4);
+            box-shadow: 0 8px 32px rgba(255,107,43,0.3);
         }
 
-        /* Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-xl);
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: 1px solid var(--white-15);
+            border-radius: var(--radius-sm);
+            color: var(--white);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* ================================================================
+           BUTTONS
+           ================================================================ */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: var(--font-display);
+            transition: all 0.3s var(--ease);
+            border: none;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(255,107,43,0.35);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--white-15);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--white-30);
+            background: var(--white-04);
+            transform: translateY(-2px);
+        }
+
+        .btn-large {
+            padding: 18px 44px;
+            font-size: 1.15rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* ================================================================
+           CARDS (line-border, no backdrop-filter)
+           ================================================================ */
+
+        .card {
+            background: var(--black-800);
+            border: 1px solid var(--white-08);
+            border-radius: var(--radius-lg);
+            padding: clamp(24px, 3vw, 40px);
+            transition: all 0.3s var(--ease);
             position: relative;
-            z-index: 2;
+            overflow: hidden;
         }
 
-        /* Hero */
-        .hero {
-            padding: calc(var(--space-3xl) * 2) 0 var(--space-3xl);
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--white-15);
+            transform: translateY(-4px);
+            background: var(--black-700);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            background: var(--gradient-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            border: 1px solid var(--white-08);
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            color: var(--white-90);
+        }
+
+        .card p {
+            color: var(--white-50);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .card-grid {
+            display: grid;
+            gap: clamp(16px, 2vw, 24px);
+        }
+
+        .card-grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+        }
+
+        .card-grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+        }
+
+        .card-grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+        }
+
+        /* ================================================================
+           STAT CARDS
+           ================================================================ */
+
+        .stat-card {
+            background: var(--black-800);
+            border: 1px solid var(--white-08);
+            border-radius: var(--radius-md);
+            padding: clamp(20px, 2.5vw, 32px);
             text-align: center;
         }
 
-        .hero h1 {
-            font-size: 64px;
-            font-weight: 900;
-            margin-bottom: var(--space-md);
-            line-height: 1.1;
-        }
-
-        .hero .gradient-text {
-            background: linear-gradient(135deg, var(--amber) 0%, var(--hot-pink) 38.2%, var(--violet) 61.8%, var(--electric-blue) 100%);
+        .stat-number {
+            font-family: var(--font-mono);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            background: var(--gradient-text);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: 8px;
         }
 
-        .hero p {
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: var(--space-xl);
-            max-width: 700px;
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--white-50);
+        }
+
+        /* ================================================================
+           HERO SECTION
+           ================================================================ */
+
+        .hero {
+            padding-top: clamp(140px, 18vw, 220px);
+            padding-bottom: clamp(80px, 12vw, 160px);
+            position: relative;
+        }
+
+        .hero .container {
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border: 1px solid var(--white-08);
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--white-70);
+            margin-bottom: 32px;
+            background: var(--black-800);
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            margin-bottom: 24px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .price-banner {
-            display: inline-block;
-            background: rgba(255, 29, 108, 0.1);
-            border: 2px solid var(--hot-pink);
-            border-radius: 50px;
-            padding: var(--space-sm) var(--space-xl);
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: var(--space-xl);
+        .hero .subtitle {
+            margin: 0 auto 40px;
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
         }
 
-        .price-banner .old-price {
-            text-decoration: line-through;
-            opacity: 0.5;
-            margin-right: var(--space-sm);
-        }
-
-        .price-banner .new-price {
-            color: var(--hot-pink);
-        }
-
-        /* Features Grid */
-        .features {
+        .hero-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-lg);
-            margin: var(--space-3xl) 0;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            max-width: 800px;
+            margin: 60px auto 0;
         }
 
-        .feature-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: var(--space-lg);
+        /* ================================================================
+           CRISIS SECTION
+           ================================================================ */
+
+        .crisis-section {
+            background: var(--black-900);
+            border-top: 1px solid var(--white-08);
+            border-bottom: 1px solid var(--white-08);
+        }
+
+        .crisis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .crisis-card {
+            background: var(--black-800);
+            border: 1px solid rgba(255,61,113,0.2);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            position: relative;
+        }
+
+        .crisis-card .crisis-stat {
+            font-family: var(--font-mono);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--red);
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .crisis-card h3 {
+            color: var(--white-90);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .crisis-card p {
+            color: var(--white-50);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .crisis-card .source {
+            margin-top: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--white-30);
+        }
+
+        .crisis-summary {
+            background: var(--black-700);
+            border: 1px solid rgba(255,61,113,0.15);
+            border-radius: var(--radius-lg);
+            padding: clamp(24px, 3vw, 40px);
+            text-align: center;
+        }
+
+        .crisis-summary h3 {
+            color: var(--red);
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+
+        .crisis-summary p {
+            color: var(--white-70);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ================================================================
+           DIFFERENCE SECTION
+           ================================================================ */
+
+        .diff-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .diff-old, .diff-new {
+            border-radius: var(--radius-lg);
+            padding: clamp(24px, 3vw, 40px);
+        }
+
+        .diff-old {
+            background: var(--black-800);
+            border: 1px solid rgba(255,61,113,0.15);
+        }
+
+        .diff-new {
+            background: var(--black-800);
+            border: 1px solid rgba(0,212,255,0.2);
+        }
+
+        .diff-old h3 {
+            color: var(--red);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .diff-new h3 {
+            color: var(--cyan);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .diff-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--white-04);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .diff-item:last-child {
+            border-bottom: none;
+        }
+
+        .diff-item .icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .diff-old .diff-item .icon {
+            background: rgba(255,61,113,0.15);
+            color: var(--red);
+        }
+
+        .diff-new .diff-item .icon {
+            background: rgba(0,212,255,0.15);
+            color: var(--cyan);
+        }
+
+        .diff-item h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: var(--white-90);
+        }
+
+        .diff-item p {
+            font-size: 0.85rem;
+            color: var(--white-50);
+            line-height: 1.6;
+        }
+
+        /* ================================================================
+           FEATURES SECTION
+           ================================================================ */
+
+        .feature-highlight {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(32px, 4vw, 64px);
+            align-items: center;
+            margin-bottom: clamp(60px, 8vw, 100px);
+        }
+
+        .feature-highlight:nth-child(even) {
+            direction: rtl;
+        }
+
+        .feature-highlight:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .feature-visual {
+            background: var(--black-800);
+            border: 1px solid var(--white-08);
+            border-radius: var(--radius-xl);
+            padding: clamp(24px, 3vw, 40px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient);
+        }
+
+        .feature-code {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: var(--white-70);
+        }
+
+        .feature-code .comment {
+            color: var(--white-30);
+        }
+
+        .feature-code .keyword {
+            color: var(--orange);
+        }
+
+        .feature-code .string {
+            color: var(--cyan);
+        }
+
+        .feature-code .func {
+            color: var(--violet);
+        }
+
+        .feature-content .label {
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .feature-content h3 {
+            margin-bottom: 16px;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .feature-content p {
+            color: var(--white-50);
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--white-70);
+            font-size: 0.95rem;
+        }
+
+        .feature-list li .check {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(0,230,118,0.1);
+            border: 1px solid rgba(0,230,118,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--green);
+            margin-top: 2px;
+        }
+
+        /* ================================================================
+           ACCESSIBILITY SECTION
+           ================================================================ */
+
+        .a11y-section {
+            background: var(--black-900);
+            border-top: 1px solid var(--white-08);
+            border-bottom: 1px solid var(--white-08);
+        }
+
+        .a11y-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+            gap: 20px;
+        }
+
+        .a11y-card {
+            background: var(--black-800);
+            border: 1px solid var(--white-08);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            text-align: center;
             transition: all 0.3s var(--ease);
         }
 
-        .feature-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateY(-4px);
-            border-color: var(--hot-pink);
+        .a11y-card:hover {
+            border-color: var(--cyan);
+            transform: translateY(-2px);
         }
 
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: var(--space-md);
-        }
-
-        .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: var(--space-sm);
-            color: var(--hot-pink);
-        }
-
-        .feature-card p {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Demo Section */
-        .demo {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 24px;
-            padding: var(--space-3xl);
-            margin: var(--space-3xl) 0;
-            text-align: center;
-        }
-
-        .demo h2 {
-            font-size: 48px;
-            margin-bottom: var(--space-xl);
-        }
-
-        .demo-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: var(--space-lg);
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto var(--space-lg);
-            color: var(--white);
-            font-size: 18px;
-            font-family: inherit;
-        }
-
-        .demo-input:focus {
-            outline: none;
-            border-color: var(--hot-pink);
-        }
-
-        #demo-response {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: var(--space-lg);
-            margin-top: var(--space-lg);
-            text-align: left;
-            display: none;
-        }
-
-        /* Pricing Comparison */
-        .comparison {
-            margin: var(--space-3xl) 0;
-        }
-
-        .comparison h2 {
-            text-align: center;
-            font-size: 48px;
-            margin-bottom: var(--space-xl);
-        }
-
-        .comparison-table {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-md);
-        }
-
-        .comparison-col {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: var(--space-lg);
-        }
-
-        .comparison-col.highlight {
-            border: 2px solid var(--hot-pink);
-            background: rgba(255, 29, 108, 0.05);
-        }
-
-        .comparison-col h3 {
-            font-size: 24px;
-            margin-bottom: var(--space-md);
-        }
-
-        .comparison-col .price {
+        .a11y-icon {
             font-size: 36px;
-            font-weight: 800;
-            color: var(--hot-pink);
-            margin-bottom: var(--space-md);
+            margin-bottom: 16px;
+            display: block;
         }
 
-        .comparison-col ul {
+        .a11y-card h4 {
+            color: var(--white-90);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .a11y-card p {
+            color: var(--white-50);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .a11y-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 100px;
+            background: var(--black-800);
+            margin-top: 40px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--cyan);
+        }
+
+        /* ================================================================
+           LMS INTEGRATION SECTION
+           ================================================================ */
+
+        .lms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+            gap: 24px;
+        }
+
+        .lms-card {
+            background: var(--black-800);
+            border: 1px solid var(--white-08);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: all 0.3s var(--ease);
+        }
+
+        .lms-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-3px);
+        }
+
+        .lms-card .lms-name {
+            font-family: var(--font-mono);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white-90);
+            margin-bottom: 12px;
+        }
+
+        .lms-card .lms-protocol {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255,107,43,0.1);
+            border: 1px solid rgba(255,107,43,0.2);
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--orange);
+            margin-bottom: 16px;
+        }
+
+        .lms-card p {
+            color: var(--white-50);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .lms-features {
+            margin-top: 16px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .lms-features li {
+            font-size: 0.85rem;
+            color: var(--white-50);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .lms-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gradient);
+        }
+
+        /* ================================================================
+           PRICING SECTION
+           ================================================================ */
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+            gap: 20px;
+        }
+
+        .pricing-card {
+            background: var(--black-800);
+            border: 1px solid var(--white-08);
+            border-radius: var(--radius-lg);
+            padding: clamp(28px, 3vw, 40px);
+            position: relative;
+            transition: all 0.3s var(--ease);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--white-15);
+            transform: translateY(-4px);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--orange);
+            background: linear-gradient(180deg, rgba(255,107,43,0.06) 0%, var(--black-800) 100%);
+        }
+
+        .pricing-card.featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            padding: 4px 16px;
+            background: var(--gradient);
+            color: var(--black);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .pricing-tier {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--orange);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .pricing-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white-90);
+            margin-bottom: 16px;
+        }
+
+        .pricing-price {
+            margin-bottom: 8px;
+        }
+
+        .pricing-amount {
+            font-family: var(--font-mono);
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            font-weight: 700;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-period {
+            font-size: 0.9rem;
+            color: var(--white-50);
+        }
+
+        .pricing-desc {
+            color: var(--white-50);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--white-08);
+        }
+
+        .pricing-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--white-70);
+        }
+
+        .pricing-features li .check {
+            flex-shrink: 0;
+            color: var(--green);
+            font-size: 14px;
+            margin-top: 3px;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* ================================================================
+           FSRS SECTION
+           ================================================================ */
+
+        .fsrs-visual {
+            background: var(--black-800);
+            border: 1px solid var(--white-08);
+            border-radius: var(--radius-xl);
+            padding: clamp(32px, 4vw, 56px);
+            margin-top: 48px;
+        }
+
+        .fsrs-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .fsrs-header .badge {
+            padding: 4px 12px;
+            background: rgba(179,136,255,0.1);
+            border: 1px solid rgba(179,136,255,0.2);
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--violet);
+        }
+
+        .fsrs-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .fsrs-step {
+            background: var(--black-700);
+            border: 1px solid var(--white-08);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .fsrs-step .step-num {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--violet);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .fsrs-step h4 {
+            margin-bottom: 8px;
+            color: var(--white-90);
+            font-size: 1rem;
+        }
+
+        .fsrs-step p {
+            font-size: 0.8rem;
+            color: var(--white-50);
+            line-height: 1.6;
+        }
+
+        /* ================================================================
+           TESTIMONIAL / SOCIAL PROOF
+           ================================================================ */
+
+        .proof-section {
+            text-align: center;
+        }
+
+        .proof-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(32px, 5vw, 64px);
+            flex-wrap: wrap;
+            margin-top: 32px;
+            opacity: 0.5;
+        }
+
+        .proof-logo {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--white-50);
+            font-weight: 600;
+        }
+
+        /* ================================================================
+           CTA SECTION
+           ================================================================ */
+
+        .cta-section {
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-box {
+            background: var(--black-800);
+            border: 1px solid var(--white-08);
+            border-radius: var(--radius-xl);
+            padding: clamp(40px, 6vw, 80px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient);
+        }
+
+        .cta-box::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 200px;
+            background: radial-gradient(ellipse, rgba(255,107,43,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-box h2 {
+            margin-bottom: 16px;
+        }
+
+        .cta-box .subtitle {
+            margin: 0 auto 36px;
+        }
+
+        .cta-box .btn-group {
+            justify-content: center;
+        }
+
+        .cta-note {
+            margin-top: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--white-30);
+        }
+
+        /* ================================================================
+           FOOTER
+           ================================================================ */
+
+        footer {
+            border-top: 1px solid var(--white-08);
+            padding: 60px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand .logo-text {
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            color: var(--white-50);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            color: var(--white-90);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-family: var(--font-mono);
+        }
+
+        .footer-col ul {
             list-style: none;
         }
 
-        .comparison-col li {
-            padding: var(--space-xs) 0;
-            color: rgba(255, 255, 255, 0.7);
+        .footer-col li {
+            margin-bottom: 12px;
         }
 
-        .comparison-col li::before {
-            content: '✓';
-            color: var(--hot-pink);
-            margin-right: var(--space-xs);
+        .footer-col a {
+            color: var(--white-50);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
         }
 
-        /* CTA */
-        .cta {
-            text-align: center;
-            padding: var(--space-3xl) 0;
-        }
-
-        .cta h2 {
-            font-size: 56px;
-            margin-bottom: var(--space-md);
-        }
-
-        .cta p {
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: var(--space-xl);
-        }
-
-        .btn-cta {
-            font-size: 24px;
-            padding: var(--space-lg) var(--space-2xl);
-            background: var(--hot-pink);
+        .footer-col a:hover {
             color: var(--white);
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 800;
-            transition: all 0.3s var(--ease);
         }
 
-        .btn-cta:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 20px 60px rgba(255, 29, 108, 0.5);
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--white-08);
         }
 
-        footer {
-            text-align: center;
-            padding: var(--space-xl) 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.5);
+        .footer-bottom p {
+            color: var(--white-30);
+            font-size: 0.8rem;
+            font-family: var(--font-mono);
+        }
+
+        .footer-bottom .tagline {
+            color: var(--white-50);
+            font-family: var(--font-display);
+            font-style: italic;
+        }
+
+        /* ================================================================
+           RESPONSIVE
+           ================================================================ */
+
+        @media (max-width: 1024px) {
+            .diff-comparison { grid-template-columns: 1fr; }
+            .feature-highlight { grid-template-columns: 1fr; }
+            .feature-highlight:nth-child(even) { direction: ltr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 36px; }
-            .comparison-table { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero-stats { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats { grid-template-columns: 1fr; }
+            .btn-group { flex-direction: column; align-items: stretch; }
+        }
+
+        /* ================================================================
+           ACCESSIBILITY (reduced motion, high contrast, focus)
+           ================================================================ */
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        @media (prefers-contrast: high) {
+            :root {
+                --white-50: rgba(255,255,255,0.8);
+                --white-70: rgba(255,255,255,0.95);
+                --white-08: rgba(255,255,255,0.25);
+            }
+            .card, .pricing-card, .crisis-card, .a11y-card, .lms-card {
+                border-width: 2px;
+            }
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--cyan);
+            outline-offset: 4px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 16px;
+            background: var(--cyan);
+            color: var(--black);
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            z-index: 10000;
+            text-decoration: none;
+            font-family: var(--font-display);
+        }
+
+        .skip-link:focus {
+            top: 16px;
+        }
+
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border-width: 0;
         }
     </style>
 </head>
 <body>
-    <div class="grid-bg"></div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="grid-bg" aria-hidden="true"></div>
 
-    <nav>
+    <!-- ================================================================
+         NAVIGATION
+         ================================================================ -->
+    <nav role="navigation" aria-label="Main navigation">
         <div class="container">
-            <div class="logo">🎓 RoadWork</div>
-            <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
+            <div class="nav-left">
+                <div class="logo-icon" aria-hidden="true">RW</div>
+                <a href="/" class="logo-text">RoadWork</a>
+            </div>
+            <ul class="nav-links" role="list">
+                <li><a href="#crisis">The Problem</a></li>
+                <li><a href="#how">How It Works</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#accessibility">Accessibility</a></li>
+                <li><a href="#lms">LMS</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <a href="#pricing" class="nav-cta">Start Free Trial</a>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation menu" onclick="toggleMobileMenu()">&#9776;</button>
         </div>
     </nav>
 
-    <section class="hero">
+    <!-- ================================================================
+         HERO
+         ================================================================ -->
+    <section class="hero" id="main-content" role="main">
         <div class="container">
-            <h1>Stop Paying <span class="gradient-text">$20/month</span><br>For Homework Help</h1>
-            <p>Get unlimited AI tutoring, step-by-step explanations, and 24/7 help for just $9/month. No more Chegg paywalls.</p>
-
-            <div class="price-banner">
-                <span class="old-price">$19.95</span>
-                <span class="new-price">$9/month</span>
-                <span style="margin-left: var(--space-sm);">unlimited access</span>
+            <div class="hero-badge">
+                <span class="dot" aria-hidden="true"></span>
+                <span>Accessibility-first AI education</span>
             </div>
 
-            <a href="#demo" class="btn btn-cta">Try It Free →</a>
-            <p style="font-size: 14px; margin-top: var(--space-sm);">No credit card required • Cancel anytime</p>
-        </div>
-    </section>
+            <h1>
+                <span class="gradient-text">Education That</span><br>
+                Actually Works
+            </h1>
 
-    <section class="container">
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">📸</div>
-                <h3>Upload Any Problem</h3>
-                <p>Take a photo of your homework, upload a PDF, or paste text. RoadWork understands all formats.</p>
+            <p class="subtitle">
+                Adaptive AI tutoring that remembers your student across sessions, builds conceptual understanding instead of rote memorization, and meets every learner where they are. Accessible by default. Effective by design.
+            </p>
+
+            <div class="btn-group" style="justify-content: center; margin-bottom: 16px;">
+                <a href="#pricing" class="btn btn-primary btn-large">Start Learning Free</a>
+                <a href="#how" class="btn btn-secondary btn-large">See How It Works</a>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">🧠</div>
-                <h3>Step-by-Step Explanations</h3>
-                <p>Not just answers - understand WHY. Get detailed breakdowns that teach you the concepts.</p>
-            </div>
+            <p class="mono" style="font-size: 0.8rem; color: var(--white-30);">No credit card required. 14-day free trial. Cancel anytime.</p>
 
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Instant Responses</h3>
-                <p>No waiting. Get help immediately, 24/7. Perfect for late-night study sessions.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">📚</div>
-                <h3>All Subjects</h3>
-                <p>Math, Physics, Chemistry, Biology, History, English, and more. One platform for everything.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3>Visual Learning</h3>
-                <p>Get graphs, diagrams, and interactive visualizations. Perfect for STEM subjects.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>Academic Integrity</h3>
-                <p>Focuses on teaching, not cheating. Learn the material, don't just copy answers.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="demo" class="container">
-        <div class="demo">
-            <h2>Try RoadWork Now (Free Demo)</h2>
-            <p>Ask any homework question:</p>
-            <textarea class="demo-input" placeholder="Example: Solve for x: 2x + 5 = 13" id="question" rows="4"></textarea>
-            <button class="btn btn-cta" onclick="askQuestion()">Get Help →</button>
-            <div id="demo-response"></div>
-        </div>
-    </section>
-
-    <section id="pricing" class="container">
-        <div class="comparison">
-            <h2>Why Switch to RoadWork?</h2>
-            <div class="comparison-table">
-                <div class="comparison-col">
-                    <h3>Chegg</h3>
-                    <div class="price">$19.95/mo</div>
-                    <ul>
-                        <li>Limited questions</li>
-                        <li>Slow responses</li>
-                        <li>Textbook-only</li>
-                        <li>Old interface</li>
-                    </ul>
+            <div class="hero-stats" role="list" aria-label="Key statistics">
+                <div class="stat-card" role="listitem">
+                    <div class="stat-number">FSRS</div>
+                    <div class="stat-label">Spaced Repetition Algorithm</div>
                 </div>
-
-                <div class="comparison-col">
-                    <h3>CourseHero</h3>
-                    <div class="price">$39.95/mo</div>
-                    <ul>
-                        <li>Upload required</li>
-                        <li>Limited unlocks</li>
-                        <li>Paywalled docs</li>
-                        <li>Expensive</li>
-                    </ul>
+                <div class="stat-card" role="listitem">
+                    <div class="stat-number">ADA</div>
+                    <div class="stat-label">Title II 2025 Compliant</div>
                 </div>
-
-                <div class="comparison-col">
-                    <h3>Private Tutor</h3>
-                    <div class="price">$50+/hour</div>
-                    <ul>
-                        <li>Very expensive</li>
-                        <li>Schedule conflicts</li>
-                        <li>Limited hours</li>
-                        <li>Not 24/7</li>
-                    </ul>
+                <div class="stat-card" role="listitem">
+                    <div class="stat-number">LTI 1.3</div>
+                    <div class="stat-label">LMS Integration</div>
                 </div>
-
-                <div class="comparison-col highlight">
-                    <h3>RoadWork ✨</h3>
-                    <div class="price">$9/mo</div>
-                    <ul>
-                        <li>✓ Unlimited questions</li>
-                        <li>✓ Instant AI help</li>
-                        <li>✓ All subjects</li>
-                        <li>✓ 24/7 available</li>
-                        <li>✓ Step-by-step</li>
-                        <li>✓ Visual learning</li>
-                    </ul>
+                <div class="stat-card" role="listitem">
+                    <div class="stat-number">$9.99</div>
+                    <div class="stat-label">Per Month Individual</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="container">
-        <div class="cta">
-            <h2>Start Learning Better Today</h2>
-            <p>Join thousands of students getting better grades with RoadWork</p>
-            <button class="btn-cta" onclick="checkout()">Start Free Trial →</button>
-            <p style="font-size: 14px; margin-top: var(--space-md);">14-day free trial • $9/month after • Cancel anytime</p>
+    <!-- ================================================================
+         THE CRISIS
+         ================================================================ -->
+    <section class="crisis-section" id="crisis" aria-labelledby="crisis-heading">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">The Crisis</span>
+                <h2 id="crisis-heading">Education Is Broken.<br><span class="gradient-text">The Numbers Prove It.</span></h2>
+                <p class="subtitle">Billions spent on edtech. Test scores declining. Parents lost. Students falling behind. The system is not working.</p>
+            </div>
+
+            <div class="crisis-grid">
+                <div class="crisis-card">
+                    <div class="crisis-stat" aria-label="40 percent">40%</div>
+                    <h3>of 4th Graders Below Basic Reading</h3>
+                    <p>NAEP 2024 data shows the largest reading decline in 30 years. Nearly half of American children cannot read at a basic level by 4th grade. This is not a gap. This is a collapse.</p>
+                    <div class="source">Source: NAEP 2024 Reading Assessment</div>
+                </div>
+
+                <div class="crisis-card">
+                    <div class="crisis-stat" aria-label="60 percent">60%</div>
+                    <h3>of Parents Cannot Help With Homework</h3>
+                    <p>By middle school, most parents are lost. New math standards, unfamiliar methods, and changing curricula leave families without support. Students fall behind alone.</p>
+                    <div class="source">Source: Pew Research Center, 2023</div>
+                </div>
+
+                <div class="crisis-card">
+                    <div class="crisis-stat" aria-label="14 billion dollars">$14B</div>
+                    <h3>Wasted on Ineffective EdTech</h3>
+                    <p>Schools spent $14 billion on education technology during and after the pandemic. Studies show most of it had zero measurable impact on learning outcomes. Drill-and-practice apps do not build understanding.</p>
+                    <div class="source">Source: RAND Corporation, 2023</div>
+                </div>
+
+                <div class="crisis-card">
+                    <div class="crisis-stat" aria-label="78 percent">78%</div>
+                    <h3>of EdTech Fails Accessibility</h3>
+                    <p>The vast majority of educational software does not meet basic accessibility standards. Students with disabilities are excluded from the tools their schools purchased for them. ADA Title II 2025 mandates change.</p>
+                    <div class="source">Source: National Federation of the Blind, 2024</div>
+                </div>
+
+                <div class="crisis-card">
+                    <div class="crisis-stat" aria-label="3x">3x</div>
+                    <h3>Learning Loss for Low-Income Students</h3>
+                    <p>Students from low-income families lost three times more learning during disruption than their wealthier peers. The gap is widening. Expensive tutoring is not the answer. Affordable, effective AI is.</p>
+                    <div class="source">Source: McKinsey &amp; Company, 2023</div>
+                </div>
+
+                <div class="crisis-card">
+                    <div class="crisis-stat" aria-label="90 percent">90%</div>
+                    <h3>of AI Tutors Have No Memory</h3>
+                    <p>Current AI education tools reset every session. They do not know your student struggled with fractions last week. They do not adapt. They are chatbots pretending to be tutors.</p>
+                    <div class="source">Source: Stanford HAI, 2024</div>
+                </div>
+            </div>
+
+            <div class="crisis-summary">
+                <h3>The Bottom Line</h3>
+                <p>Education technology was supposed to fix learning. Instead, it created a $14 billion industry of ineffective apps that exclude disabled students, forget everything between sessions, and test memorization instead of understanding. <strong style="color: var(--white);">RoadWork is built to be the opposite of all of that.</strong></p>
+            </div>
         </div>
     </section>
 
+    <!-- ================================================================
+         HOW ROADWORK IS DIFFERENT
+         ================================================================ -->
+    <section id="how" aria-labelledby="how-heading">
+        <div class="container">
+            <div class="section-header">
+                <span class="label label-cyan">How RoadWork Is Different</span>
+                <h2 id="how-heading">Not Another <span class="gradient-text">Drill-and-Practice App</span></h2>
+                <p class="subtitle">RoadWork does not quiz you until you memorize. It teaches you until you understand. Here is how that changes everything.</p>
+            </div>
+
+            <div class="diff-comparison">
+                <div class="diff-old">
+                    <h3><span aria-hidden="true">&#10005;</span> Traditional EdTech</h3>
+                    <div class="diff-item">
+                        <div class="icon" aria-hidden="true">&#10005;</div>
+                        <div>
+                            <h4>Stateless Sessions</h4>
+                            <p>Every session starts from zero. The AI does not know your student struggled with fractions last Tuesday.</p>
+                        </div>
+                    </div>
+                    <div class="diff-item">
+                        <div class="icon" aria-hidden="true">&#10005;</div>
+                        <div>
+                            <h4>Drill-and-Practice</h4>
+                            <p>Repeat the same type of problem 50 times. No conceptual teaching. No scaffolding. Just repetition.</p>
+                        </div>
+                    </div>
+                    <div class="diff-item">
+                        <div class="icon" aria-hidden="true">&#10005;</div>
+                        <div>
+                            <h4>Accessibility Bolted On</h4>
+                            <p>Screen reader support added as an afterthought. Keyboard navigation broken. Dyslexic students ignored.</p>
+                        </div>
+                    </div>
+                    <div class="diff-item">
+                        <div class="icon" aria-hidden="true">&#10005;</div>
+                        <div>
+                            <h4>One-Size-Fits-All</h4>
+                            <p>Same pace, same path, same content for every student. No adaptation. No personalization.</p>
+                        </div>
+                    </div>
+                    <div class="diff-item">
+                        <div class="icon" aria-hidden="true">&#10005;</div>
+                        <div>
+                            <h4>Isolated from LMS</h4>
+                            <p>Teachers manually enter grades. No integration with Canvas, Schoology, or existing classroom tools.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="diff-new">
+                    <h3><span aria-hidden="true">&#10003;</span> RoadWork</h3>
+                    <div class="diff-item">
+                        <div class="icon" aria-hidden="true">&#10003;</div>
+                        <div>
+                            <h4>Cross-Session Memory</h4>
+                            <p>RoadWork remembers everything. Struggles, breakthroughs, preferred learning styles. It picks up where you left off.</p>
+                        </div>
+                    </div>
+                    <div class="diff-item">
+                        <div class="icon" aria-hidden="true">&#10003;</div>
+                        <div>
+                            <h4>Conceptual Understanding</h4>
+                            <p>Teaches the WHY, not just the HOW. Uses Socratic method, visualization, and scaffolded reasoning to build real comprehension.</p>
+                        </div>
+                    </div>
+                    <div class="diff-item">
+                        <div class="icon" aria-hidden="true">&#10003;</div>
+                        <div>
+                            <h4>Accessibility-First</h4>
+                            <p>Built from day one for every learner. ADA Title II 2025 compliant. Screen readers, speech input, dyslexia fonts, high contrast.</p>
+                        </div>
+                    </div>
+                    <div class="diff-item">
+                        <div class="icon" aria-hidden="true">&#10003;</div>
+                        <div>
+                            <h4>FSRS Adaptive Learning</h4>
+                            <p>Free Spaced Repetition Scheduler optimizes review timing per student. Difficulty and stability tracked per concept, per learner.</p>
+                        </div>
+                    </div>
+                    <div class="diff-item">
+                        <div class="icon" aria-hidden="true">&#10003;</div>
+                        <div>
+                            <h4>Native LMS Integration</h4>
+                            <p>LTI 1.3 connects directly to Canvas, Schoology, MyMathLab. Grades sync automatically. Teachers see real progress data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FSRS Algorithm Visual -->
+            <div class="fsrs-visual">
+                <div class="fsrs-header">
+                    <h3>FSRS Adaptive Learning Algorithm</h3>
+                    <span class="badge">Backed by research</span>
+                </div>
+                <p style="color: var(--white-50); margin-bottom: 24px; font-size: 0.9rem;">The Free Spaced Repetition Scheduler (FSRS) tracks two parameters per concept per student: <strong style="color: var(--white-90);">difficulty</strong> (how hard is this concept for this learner) and <strong style="color: var(--white-90);">stability</strong> (how well is it retained over time). This creates a personalized review schedule that maximizes retention while minimizing study time.</p>
+                <div class="fsrs-flow">
+                    <div class="fsrs-step">
+                        <div class="step-num">Step 1</div>
+                        <h4>Initial Assessment</h4>
+                        <p>Student encounters a new concept. FSRS sets initial difficulty and stability based on first interaction.</p>
+                    </div>
+                    <div class="fsrs-step">
+                        <div class="step-num">Step 2</div>
+                        <h4>Adaptive Scheduling</h4>
+                        <p>Based on response quality, FSRS calculates optimal review interval. Harder concepts reviewed sooner.</p>
+                    </div>
+                    <div class="fsrs-step">
+                        <div class="step-num">Step 3</div>
+                        <h4>Memory Decay Model</h4>
+                        <p>Forgetting curve modeled per concept. Reviews scheduled just before predicted memory decay point.</p>
+                    </div>
+                    <div class="fsrs-step">
+                        <div class="step-num">Step 4</div>
+                        <h4>Continuous Optimization</h4>
+                        <p>Parameters updated after every interaction. The system gets more accurate the more the student uses it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         FEATURES
+         ================================================================ -->
+    <section id="features" aria-labelledby="features-heading">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">Features</span>
+                <h2 id="features-heading">Everything a Student <span class="gradient-text">Actually Needs</span></h2>
+                <p class="subtitle">Not feature bloat. Every capability exists because a student, teacher, or parent asked for it.</p>
+            </div>
+
+            <!-- Feature 1: AI Tutor with Memory -->
+            <div class="feature-highlight">
+                <div class="feature-visual">
+                    <div class="feature-code">
+                        <span class="comment">// RoadWork remembers your student</span><br>
+                        <span class="keyword">session</span> = tutor.<span class="func">resume</span>(student_id)<br><br>
+                        <span class="comment">// It knows what happened last time</span><br>
+                        <span class="keyword">context</span> = session.<span class="func">get_memory</span>()<br>
+                        <span class="comment">// &rarr; "Struggled with quadratic formula"</span><br>
+                        <span class="comment">// &rarr; "Prefers visual explanations"</span><br>
+                        <span class="comment">// &rarr; "Mastered linear equations Tuesday"</span><br><br>
+                        <span class="keyword">response</span> = tutor.<span class="func">ask</span>(<br>
+                        &nbsp;&nbsp;question=<span class="string">"Help me with x^2 + 5x + 6"</span>,<br>
+                        &nbsp;&nbsp;context=context,<br>
+                        &nbsp;&nbsp;style=<span class="string">"visual"</span><br>
+                        )<br><br>
+                        <span class="comment">// Picks up exactly where you left off</span>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <span class="label">Core Feature</span>
+                    <h3>AI Tutor with Cross-Session Memory</h3>
+                    <p>RoadWork does not forget. Every session builds on the last. It knows what your student struggled with, what they mastered, and how they prefer to learn. This is not a chatbot. This is a tutor that actually knows your student.</p>
+                    <ul class="feature-list">
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Persistent memory across all sessions</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Adapts teaching style to student preference</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Tracks concept mastery over time</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Socratic method — asks questions, not just answers</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Parent and teacher progress reports</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 2: Visualization -->
+            <div class="feature-highlight">
+                <div class="feature-visual">
+                    <div class="feature-code">
+                        <span class="comment">// Generate visualization for any concept</span><br>
+                        <span class="keyword">visual</span> = tutor.<span class="func">visualize</span>(<br>
+                        &nbsp;&nbsp;concept=<span class="string">"pythagorean_theorem"</span>,<br>
+                        &nbsp;&nbsp;type=<span class="string">"interactive"</span>,<br>
+                        &nbsp;&nbsp;a11y=<span class="keyword">True</span><br>
+                        )<br><br>
+                        <span class="comment">// Interactive triangle with:</span><br>
+                        <span class="comment">// - Drag to resize sides</span><br>
+                        <span class="comment">// - Real-time a^2 + b^2 = c^2 display</span><br>
+                        <span class="comment">// - Screen reader descriptions</span><br>
+                        <span class="comment">// - High contrast mode</span><br>
+                        <span class="comment">// - Keyboard-navigable controls</span><br><br>
+                        <span class="comment">// Formats: SVG, Canvas, ASCII, audio</span>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <span class="label label-cyan">Visual Learning</span>
+                    <h3>Visualization on Demand</h3>
+                    <p>Some students need to see it. RoadWork generates interactive visualizations for any concept — from geometry proofs to molecular structures to historical timelines. Every visualization is accessible by default.</p>
+                    <ul class="feature-list">
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Interactive diagrams and graphs</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Step-by-step animated solutions</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Screen reader descriptions for all visuals</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> High contrast and colorblind-safe palettes</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> ASCII fallback for low-bandwidth connections</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 3: Experiment Sandbox -->
+            <div class="feature-highlight">
+                <div class="feature-visual">
+                    <div class="feature-code">
+                        <span class="comment">// Safe environment to experiment</span><br>
+                        <span class="keyword">sandbox</span> = tutor.<span class="func">create_sandbox</span>(<br>
+                        &nbsp;&nbsp;type=<span class="string">"chemistry"</span>,<br>
+                        &nbsp;&nbsp;topic=<span class="string">"acid_base_reactions"</span><br>
+                        )<br><br>
+                        <span class="comment">// Student mixes virtual chemicals</span><br>
+                        <span class="keyword">result</span> = sandbox.<span class="func">experiment</span>(<br>
+                        &nbsp;&nbsp;reactants=[<span class="string">"HCl"</span>, <span class="string">"NaOH"</span>],<br>
+                        &nbsp;&nbsp;conditions={<span class="string">"temp"</span>: 25, <span class="string">"pressure"</span>: 1}<br>
+                        )<br><br>
+                        <span class="comment">// &rarr; NaCl + H2O (neutralization)</span><br>
+                        <span class="comment">// &rarr; pH visualization</span><br>
+                        <span class="comment">// &rarr; "Why did the pH change?"</span>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <span class="label">Hands-On Learning</span>
+                    <h3>Experiment Sandbox</h3>
+                    <p>Students learn by doing. The experiment sandbox lets them mix chemicals, write code, simulate physics, and test hypotheses in a safe environment. Every experiment comes with guided questions that build understanding.</p>
+                    <ul class="feature-list">
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Chemistry lab simulations</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Physics engine with real-world constants</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Code sandbox with instant feedback</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Math graphing calculator</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Historical scenario simulations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 4: Content Creation -->
+            <div class="feature-highlight">
+                <div class="feature-visual">
+                    <div class="feature-code">
+                        <span class="comment">// Teachers create adaptive content</span><br>
+                        <span class="keyword">lesson</span> = tutor.<span class="func">create_content</span>(<br>
+                        &nbsp;&nbsp;subject=<span class="string">"biology"</span>,<br>
+                        &nbsp;&nbsp;topic=<span class="string">"cell_division"</span>,<br>
+                        &nbsp;&nbsp;grade_level=9,<br>
+                        &nbsp;&nbsp;standards=[<span class="string">"NGSS-LS1-4"</span>],<br>
+                        &nbsp;&nbsp;differentiation=<span class="keyword">True</span><br>
+                        )<br><br>
+                        <span class="comment">// Auto-generates:</span><br>
+                        <span class="comment">// - Reading at 3 Lexile levels</span><br>
+                        <span class="comment">// - Visual diagrams</span><br>
+                        <span class="comment">// - Check-for-understanding questions</span><br>
+                        <span class="comment">// - FSRS review cards</span><br>
+                        <span class="comment">// - Accessible versions</span>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <span class="label label-cyan">For Teachers</span>
+                    <h3>Adaptive Content Creation</h3>
+                    <p>Teachers spend 7+ hours per week creating materials. RoadWork generates standards-aligned, differentiated content in minutes. Automatically creates multiple reading levels, visual aids, and assessment items.</p>
+                    <ul class="feature-list">
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Standards-aligned (Common Core, NGSS, state)</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Auto-differentiated at 3 reading levels</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Built-in formative assessments</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> FSRS review cards auto-generated</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Export to LMS with one click</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Additional Features Grid -->
+            <div class="card-grid card-grid-3" style="margin-top: 60px;">
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">&#128202;</div>
+                    <h3>Progress Dashboard</h3>
+                    <p>Real-time view of concept mastery, study time, retention rates, and FSRS scheduling. Parents and teachers see exactly where a student stands.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">&#128483;</div>
+                    <h3>Voice Interaction</h3>
+                    <p>Ask questions by speaking. Get explanations read aloud. Full speech-to-text and text-to-speech with natural, patient delivery.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">&#127760;</div>
+                    <h3>Multilingual Support</h3>
+                    <p>Tutor and respond in 30+ languages. Support bilingual students learning in their strongest language while building English proficiency.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">&#128274;</div>
+                    <h3>Privacy-First</h3>
+                    <p>FERPA and COPPA compliant. Student data encrypted at rest and in transit. No data sold. No ad targeting. Ever.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">&#128225;</div>
+                    <h3>Offline Mode</h3>
+                    <p>Works without internet. FSRS review cards, saved lessons, and core tutoring available offline. Syncs when connection returns.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" aria-hidden="true">&#128101;</div>
+                    <h3>Collaborative Learning</h3>
+                    <p>Study groups with shared workspaces. Peer tutoring matched by skill level. Group problem-solving with AI facilitation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         ACCESSIBILITY
+         ================================================================ -->
+    <section class="a11y-section" id="accessibility" aria-labelledby="a11y-heading">
+        <div class="container">
+            <div class="section-header">
+                <span class="label label-cyan">Accessibility-First</span>
+                <h2 id="a11y-heading">Built for <span class="gradient-text">Every Learner</span></h2>
+                <p class="subtitle">Not bolted on. Not an afterthought. Every feature is designed from the ground up to be accessible. ADA Title II 2025 compliant.</p>
+            </div>
+
+            <div class="a11y-grid">
+                <div class="a11y-card">
+                    <span class="a11y-icon" aria-hidden="true">&#128483;</span>
+                    <h4>Screen Readers</h4>
+                    <p>Full ARIA landmarks, live regions, and semantic HTML. Tested with NVDA, JAWS, VoiceOver, and TalkBack.</p>
+                </div>
+                <div class="a11y-card">
+                    <span class="a11y-icon" aria-hidden="true">&#127908;</span>
+                    <h4>Speech Input</h4>
+                    <p>Speak your questions. Navigate by voice. Dictate essays and math expressions with natural language processing.</p>
+                </div>
+                <div class="a11y-card">
+                    <span class="a11y-icon" aria-hidden="true">&#127912;</span>
+                    <h4>High Contrast</h4>
+                    <p>WCAG AAA contrast ratios. Dark, light, and high-contrast themes. Respects system preferences automatically.</p>
+                </div>
+                <div class="a11y-card">
+                    <span class="a11y-icon" aria-hidden="true">&#128300;</span>
+                    <h4>Dyslexia-Friendly</h4>
+                    <p>OpenDyslexic font option. Adjustable letter spacing, line height, and word spacing. Bionic reading mode.</p>
+                </div>
+                <div class="a11y-card">
+                    <span class="a11y-icon" aria-hidden="true">&#9000;</span>
+                    <h4>Keyboard Navigation</h4>
+                    <p>Every feature reachable by keyboard. Logical tab order. Visible focus indicators. No mouse required.</p>
+                </div>
+                <div class="a11y-card">
+                    <span class="a11y-icon" aria-hidden="true">&#128065;</span>
+                    <h4>Low Vision</h4>
+                    <p>Text zoom up to 400% without layout break. Scalable interface elements. Magnification-friendly design.</p>
+                </div>
+                <div class="a11y-card">
+                    <span class="a11y-icon" aria-hidden="true">&#128260;</span>
+                    <h4>Motor Accessibility</h4>
+                    <p>Large touch targets (48px minimum). Switch access support. Dwell-click compatible. Adjustable timing for interactions.</p>
+                </div>
+                <div class="a11y-card">
+                    <span class="a11y-icon" aria-hidden="true">&#128220;</span>
+                    <h4>Cognitive Support</h4>
+                    <p>Simplified language mode. Step-by-step pacing. Reduced cognitive load layouts. Progress indicators for long tasks.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <div class="a11y-badge">
+                    <span aria-hidden="true">&#9989;</span>
+                    ADA Title II 2025 Compliant &middot; WCAG 2.2 AA+ &middot; Section 508 &middot; FERPA &middot; COPPA
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         LMS INTEGRATION
+         ================================================================ -->
+    <section id="lms" aria-labelledby="lms-heading">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">LMS Integration</span>
+                <h2 id="lms-heading">Works with <span class="gradient-text">Your Existing Tools</span></h2>
+                <p class="subtitle">Drop RoadWork into any classroom that uses Canvas, Schoology, or MyMathLab. LTI 1.3 integration means zero disruption to existing workflows.</p>
+            </div>
+
+            <div class="lms-grid">
+                <div class="lms-card">
+                    <div class="lms-name">Canvas</div>
+                    <div class="lms-protocol">LTI 1.3 Advantage</div>
+                    <p>Deep integration with Instructure Canvas. Assignments sync automatically. Grade passback in real time. Course copy support.</p>
+                    <ul class="lms-features">
+                        <li>Assignment and grade sync</li>
+                        <li>Roster provisioning</li>
+                        <li>Deep linking for content</li>
+                        <li>SpeedGrader integration</li>
+                        <li>Analytics dashboard embed</li>
+                    </ul>
+                </div>
+
+                <div class="lms-card">
+                    <div class="lms-name">Schoology</div>
+                    <div class="lms-protocol">LTI 1.3 Advantage</div>
+                    <p>Native Schoology integration for K-12 districts. Assignments appear in the student gradebook. Parent portal visibility.</p>
+                    <ul class="lms-features">
+                        <li>Gradebook sync</li>
+                        <li>Parent portal integration</li>
+                        <li>District-wide deployment</li>
+                        <li>SSO via Schoology</li>
+                        <li>Standards alignment display</li>
+                    </ul>
+                </div>
+
+                <div class="lms-card">
+                    <div class="lms-name">MyMathLab / Pearson</div>
+                    <div class="lms-protocol">LTI 1.3</div>
+                    <p>Connect RoadWork as a supplemental tool alongside Pearson courseware. Students get AI tutoring on the exact problems they are assigned.</p>
+                    <ul class="lms-features">
+                        <li>Problem-level integration</li>
+                        <li>Supplemental tutoring mode</li>
+                        <li>Grade passback</li>
+                        <li>Textbook section mapping</li>
+                        <li>Homework help on assigned problems</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="color: var(--white-50); font-size: 0.9rem;">Also supports: Blackboard, Brightspace D2L, Moodle, Google Classroom (via LTI 1.3 or API)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         PRICING
+         ================================================================ -->
+    <section id="pricing" aria-labelledby="pricing-heading">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">Pricing</span>
+                <h2 id="pricing-heading">Simple, <span class="gradient-text">Honest Pricing</span></h2>
+                <p class="subtitle">No hidden fees. No per-question charges. No upsells. Every plan includes full access to the AI tutor, visualization, and FSRS scheduling.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Individual -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Individual</div>
+                    <div class="pricing-name">Student</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$9.99</span>
+                        <span class="pricing-period">/month</span>
+                    </div>
+                    <p class="pricing-desc">For individual students who want unlimited AI tutoring across all subjects.</p>
+                    <ul class="pricing-features">
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Unlimited AI tutoring sessions</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Cross-session memory</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> FSRS spaced repetition</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> All subjects and grade levels</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Visualization on demand</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Experiment sandbox</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Progress dashboard</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Offline mode</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" onclick="checkout('individual')">Start Free Trial</a>
+                </div>
+
+                <!-- Family -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-tier">Family</div>
+                    <div class="pricing-name">Family Plan</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$19.99</span>
+                        <span class="pricing-period">/month</span>
+                    </div>
+                    <p class="pricing-desc">For families with multiple students. Up to 5 learner profiles with shared parent dashboard.</p>
+                    <ul class="pricing-features">
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Everything in Individual</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Up to 5 student profiles</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Parent dashboard</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Sibling learning paths</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Family progress reports</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Priority support</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Content creation tools</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Collaborative study rooms</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" onclick="checkout('family')">Start Free Trial</a>
+                </div>
+
+                <!-- School -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Institutional</div>
+                    <div class="pricing-name">School</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$3-8</span>
+                        <span class="pricing-period">/student/year</span>
+                    </div>
+                    <p class="pricing-desc">For schools and districts. Volume pricing based on enrollment. LMS integration included.</p>
+                    <ul class="pricing-features">
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Everything in Family</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> LTI 1.3 LMS integration</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Canvas, Schoology, MyMathLab</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Teacher dashboard</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Standards alignment reports</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> District admin panel</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> SSO / SAML</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> FERPA + COPPA compliant</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Dedicated support</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" onclick="checkout('school')">Contact Sales</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Enterprise</div>
+                    <div class="pricing-name">Enterprise</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$50K-200K</span>
+                        <span class="pricing-period">/year</span>
+                    </div>
+                    <p class="pricing-desc">For large districts, state departments, and organizations with custom requirements.</p>
+                    <ul class="pricing-features">
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Everything in School</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Custom AI model training</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> On-premise deployment option</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Custom curriculum alignment</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> API access</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> White-label option</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> 99.9% SLA</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Dedicated account manager</li>
+                        <li><span class="check" aria-hidden="true">&#10003;</span> Implementation support</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" onclick="checkout('enterprise')">Contact Sales</a>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="color: var(--white-50); font-size: 0.9rem;">All plans include 14-day free trial. Annual billing saves 20%. Schools: volume discounts available for 1,000+ students.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         SOCIAL PROOF
+         ================================================================ -->
+    <section class="proof-section" aria-labelledby="proof-heading">
+        <div class="container">
+            <p class="label" id="proof-heading">Built for integration with</p>
+            <div class="proof-logos" role="list">
+                <span class="proof-logo" role="listitem">Canvas</span>
+                <span class="proof-logo" role="listitem">Schoology</span>
+                <span class="proof-logo" role="listitem">Pearson</span>
+                <span class="proof-logo" role="listitem">Google Classroom</span>
+                <span class="proof-logo" role="listitem">Blackboard</span>
+                <span class="proof-logo" role="listitem">Brightspace</span>
+                <span class="proof-logo" role="listitem">Moodle</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         CTA
+         ================================================================ -->
+    <section class="cta-section" aria-labelledby="cta-heading">
+        <div class="container">
+            <div class="cta-box">
+                <h2 id="cta-heading">Start Learning <span class="gradient-text">That Actually Works</span></h2>
+                <p class="subtitle" style="margin: 0 auto 36px;">14-day free trial. No credit card. No commitment. Just better education.</p>
+                <div class="btn-group" style="justify-content: center;">
+                    <a href="#pricing" class="btn btn-primary btn-large">Start Free Trial</a>
+                    <a href="mailto:alexa@blackroad.io?subject=RoadWork%20Demo%20Request" class="btn btn-secondary btn-large">Request Demo</a>
+                </div>
+                <p class="cta-note">Individual $9.99/mo &middot; Family $19.99/mo &middot; Schools $3-8/student/yr &middot; Enterprise custom</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         FOOTER
+         ================================================================ -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 BlackRoad Education, Inc. All rights reserved.</p>
-            <p style="margin-top: var(--space-sm);">Built to help students learn, not cheat.</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo-text">RoadWork</a>
+                    <p>Adaptive AI tutoring that remembers every student, builds real understanding, and meets every learner where they are. Part of the BlackRoad OS ecosystem.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#accessibility">Accessibility</a></li>
+                        <li><a href="#lms">LMS Integration</a></li>
+                        <li><a href="#how">How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://docs.blackroad.io/roadwork">Documentation</a></li>
+                        <li><a href="https://blackroad.io/blog">Blog</a></li>
+                        <li><a href="https://status.blackroad.io">System Status</a></li>
+                        <li><a href="mailto:alexa@blackroad.io">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="https://blackroad.io/privacy">Privacy Policy</a></li>
+                        <li><a href="https://blackroad.io/terms">Terms of Service</a></li>
+                        <li><a href="https://blackroad.io/accessibility-statement">Accessibility Statement</a></li>
+                        <li><a href="https://blackroad.io/ferpa">FERPA Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024-2026 BlackRoad OS, Inc. All rights reserved. Delaware C-Corp.</p>
+                <p class="tagline">BlackRoad OS &mdash; Pave Tomorrow.</p>
+            </div>
         </div>
     </footer>
 
+    <!-- ================================================================
+         SCRIPTS
+         ================================================================ -->
     <script>
-        async function askQuestion() {
-            const question = document.getElementById('question').value;
-            const response = document.getElementById('demo-response');
+        // Navigation scroll effect
+        (function() {
+            var nav = document.querySelector('nav');
+            var scrollThreshold = 80;
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > scrollThreshold) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }, { passive: true });
+        })();
 
-            if (!question) {
-                alert('Please enter a question!');
-                return;
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            var links = document.querySelector('.nav-links');
+            if (links.style.display === 'flex') {
+                links.style.display = 'none';
+            } else {
+                links.style.display = 'flex';
+                links.style.flexDirection = 'column';
+                links.style.position = 'absolute';
+                links.style.top = '100%';
+                links.style.left = '0';
+                links.style.right = '0';
+                links.style.background = 'rgba(0,0,0,0.97)';
+                links.style.padding = '20px';
+                links.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
             }
-
-            response.style.display = 'block';
-            response.innerHTML = '<p>🤖 Roadie is thinking...</p>';
-
-            // Simulate AI response (replace with actual API call)
-            setTimeout(() => {
-                response.innerHTML = `
-                    <h3>Question: ${question}</h3>
-                    <h4>Step-by-Step Solution:</h4>
-                    <p><strong>Step 1:</strong> Subtract 5 from both sides<br>
-                    2x + 5 - 5 = 13 - 5<br>
-                    2x = 8</p>
-
-                    <p><strong>Step 2:</strong> Divide both sides by 2<br>
-                    2x / 2 = 8 / 2<br>
-                    x = 4</p>
-
-                    <p><strong>Answer:</strong> x = 4</p>
-
-                    <p style="margin-top: var(--space-md); color: var(--hot-pink);">
-                    ✨ Want unlimited help like this? <a href="#" onclick="checkout()" style="color: var(--hot-pink); text-decoration: underline;">Start your free trial</a>
-                    </p>
-                `;
-            }, 1500);
         }
 
-        function checkout() {
-            // Replace with actual Stripe checkout
-            alert('🎓 Starting your free trial!\n\nYou\'ll get:\n• 14 days free\n• Unlimited questions\n• All subjects\n• 24/7 access\n\nThen just $9/month. Cancel anytime!\n\nContact: blackroad.systems@gmail.com');
+        // Checkout handler
+        function checkout(plan) {
+            var plans = {
+                individual: { name: 'Individual Student', price: '$9.99/mo' },
+                family: { name: 'Family Plan', price: '$19.99/mo' },
+                school: { name: 'School/District', price: 'Custom' },
+                enterprise: { name: 'Enterprise', price: 'Custom' }
+            };
+            var selected = plans[plan] || plans.individual;
+            if (plan === 'school' || plan === 'enterprise') {
+                window.location.href = 'mailto:alexa@blackroad.io?subject=RoadWork%20' + selected.name + '%20Inquiry&body=I%20am%20interested%20in%20the%20' + selected.name + '%20plan%20for%20RoadWork.';
+            } else {
+                // In production, this redirects to Stripe Checkout
+                alert('RoadWork ' + selected.name + '\n\nPlan: ' + selected.price + '\n14-day free trial included.\n\nStripe checkout launching...\n\nContact: alexa@blackroad.io');
+            }
         }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                var href = this.getAttribute('href');
+                if (href === '#') return;
+                var target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    var navHeight = document.querySelector('nav').offsetHeight;
+                    var targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    // Close mobile menu if open
+                    var links = document.querySelector('.nav-links');
+                    if (window.innerWidth <= 768) {
+                        links.style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        (function() {
+            if (!('IntersectionObserver' in window)) return;
+            var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) return;
+
+            var style = document.createElement('style');
+            style.textContent = '.animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.25,0.1,0.25,1), transform 0.6s cubic-bezier(0.25,0.1,0.25,1); } .animate-in.visible { opacity: 1; transform: translateY(0); }';
+            document.head.appendChild(style);
+
+            var elements = document.querySelectorAll('.card, .crisis-card, .a11y-card, .lms-card, .pricing-card, .feature-highlight, .fsrs-step, .stat-card, .crisis-summary, .diff-old, .diff-new');
+            elements.forEach(function(el) { el.classList.add('animate-in'); });
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            elements.forEach(function(el) { observer.observe(el); });
+        })();
     </script>
 </body>
 </html>
