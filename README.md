@@ -1,41 +1,57 @@
-<div align="center">
+# RoadWork
 
-<img src="https://images.blackroad.io/pixel-art/road-logo.png" alt="BlackRoad OS" width="80" />
+AI tutoring platform with adaptive learning and spaced repetition. Free for K-12 students.
 
-# roadwork-platform
+## What It Does
 
-**🎓 RoadWork - Affordable AI tutoring platform. Replaces Chegg/CourseHero with /month unlimited access.**
+RoadWork adapts to each student. It uses FSRS (Free Spaced Repetition Scheduler) to time reviews for maximum retention, accepts answers via photo, voice, or text, and adjusts difficulty based on performance.
 
-[![BlackRoad OS](https://img.shields.io/badge/BlackRoad_OS-Pave_Tomorrow-FF2255?style=for-the-badge&labelColor=000000)](https://blackroad.io)
-[![License](https://img.shields.io/badge/License-Proprietary-FF6B2B?style=for-the-badge&labelColor=000000)](./LICENSE)
-[![Edge AI](https://img.shields.io/badge/Edge_AI-52_TOPS-00D4FF?style=for-the-badge&labelColor=000000)](https://github.com/BlackRoad-OS-Inc)
+## Features
 
-</div>
+- **Adaptive difficulty** — problems adjust based on your answers
+- **FSRS spaced repetition** — scientifically-timed review intervals
+- **Multi-modal input** — type, photograph your work, or speak your answer
+- **Progress tracking** — see what you know and what needs review
+- **Free for K-12** — no paywall for students
 
-<div align="center">
-<sub>Part of the <a href="https://blackroad.io">BlackRoad OS</a> ecosystem — sovereign edge AI infrastructure</sub>
-</div>
+## How It Works
 
----
+1. Student picks a subject and starts a session
+2. RoadWork presents problems at the right difficulty level
+3. Student answers via text, photo upload, or voice
+4. AI evaluates the response and explains any mistakes
+5. FSRS schedules the next review at the optimal interval
 
-## Overview
+The system tracks what each student struggles with and reinforces those areas without wasting time on mastered material.
 
-🎓 RoadWork - Affordable AI tutoring platform. Replaces Chegg/CourseHero with /month unlimited access.
+## Stack
+
+- **Runtime**: Cloudflare Worker
+- **Database**: D1 (student progress, question bank, review schedule)
+- **AI**: Answer evaluation and step-by-step explanations
+- **Algorithm**: FSRS v4 for spaced repetition scheduling
+- **Input**: Text, image upload, voice transcription
+
+## Deploy
+
+```bash
+npm install
+npm run dev        # Local dev server
+npm run deploy     # Deploy to production
+```
+
+## Subjects
+
+Math, science, reading, and writing for K-12. Question banks are extensible — add your own content following the schema in the worker source.
+
+## Why Free for K-12
+
+Chegg charges $20/month. CourseHero charges $10/month. Students already have enough expenses. RoadWork is free for K-12 because tutoring should not be gated by income.
 
 ## License
 
-**Proprietary** — Copyright © 2024–2026 [BlackRoad OS, Inc.](https://blackroad.io) All rights reserved.
-
-Founder & CEO: **Alexa Louise Amundson** · Delaware C-Corp
-
-See [LICENSE](./LICENSE) for full terms.
+Proprietary. Copyright (c) 2024-2026 BlackRoad OS, Inc. All rights reserved.
 
 ---
 
-<div align="center">
-
-**BlackRoad OS — Pave Tomorrow.**
-
-[blackroad.io](https://blackroad.io) · [GitHub](https://github.com/BlackRoad-OS-Inc) · [Brand](https://brand.blackroad.io)
-
-</div>
+*Remember the Road. Pave Tomorrow.*
